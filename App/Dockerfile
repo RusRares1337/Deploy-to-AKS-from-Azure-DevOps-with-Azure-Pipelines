@@ -1,16 +1,16 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /App
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj .
+COPY SampleWebApp/*.csproj .
 RUN dotnet restore
 
 # Copy everything else and build website
-COPY WebApp.csproj .
-RUN dotnet publish -c release -o /App --no-restore
+COPY SampleWebApp/. .
+RUN dotnet publish -c release -o /WebApp --no-restore
 
 # Final stage / image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /WebApp
-COPY --from=build /App ./
-ENTRYPOINT ["dotnet", "WebApp.dll"]
+COPY --from=build /WebApp ./
+ENTRYPOINT ["dotnet", "SampleWebApp.dll"]
