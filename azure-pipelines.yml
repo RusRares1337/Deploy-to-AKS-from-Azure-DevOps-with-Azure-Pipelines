@@ -33,7 +33,7 @@ stages:
         publishLocation: 'pipeline'
         
 - stage: Deploy
-  displayName: Deploy to Dev
+  displayName: Deploy
   dependsOn: Build
   variables:
     acrsecret: acrtest123raresauth
