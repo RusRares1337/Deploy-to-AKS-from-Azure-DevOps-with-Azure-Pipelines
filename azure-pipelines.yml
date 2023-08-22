@@ -65,7 +65,7 @@ stages:
               dockerRegistryEndpoint: 'acrtest123rares'
           - task: KubernetesManifest@0
             inputs:
-              kubernetesServiceConnection: K8s-Service-Connection
+              kubernetesServiceConnection: K8s
               action: 'deploy'
               namespace: 'default'
               manifests: |
