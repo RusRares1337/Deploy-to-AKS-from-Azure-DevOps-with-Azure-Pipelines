@@ -28,30 +28,12 @@ resource "azurerm_role_assignment" "rolespn" {
     ]
 }
 
-module "keyvault" {
-    source = "./modules/keyvault"
-    keyvault_name               = var.keyvault_name
-    location                    = var.location
-    resource_group_name         = var.rgname
-    service_principal_name      = var.service_principal_name
-    service_principal_object_id = module.ServicePrincipal.service_principal_object_id
-    service_principal_tenant_id = module.ServicePrincipal.service_principal_tenant_id
-
-    depends_on = [
-        module.ServicePrincipal
-    ]
+#Create Azure Container Registry
+module "acr" {
+  source              = "./modules/acr"
+  resource_group_name = var.rgname
+  location            = var.location
 }
-
-resource "azurerm_key_vault_secret" "kvsecret" {
-  name         = module.ServicePrincipal.client_id
-  value        = module.ServicePrincipal.client_secret
-  key_vault_id = module.keyvault.keyvault_id
-
-  depends_on = [
-    module.keyvault
-  ]
- }
-
 
 # Create Azure Kubernetes Service
 module "aks" {

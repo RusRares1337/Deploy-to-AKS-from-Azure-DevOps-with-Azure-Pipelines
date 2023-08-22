@@ -26,6 +26,7 @@ stages:
         Dockerfile: '$(Build.SourcesDirectory)/App/Dockerfile'
         tags: |
           $(tag)
+          latest
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Pipeline.Workspace)/s/kubernetes'
@@ -38,7 +39,7 @@ stages:
   variables:
     acrsecret: acrtest123raresauth
     acrdevurl: 'acrtest123rares.azurecr.io'
-    replicaNo: 3
+    replicaNo: 1
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
