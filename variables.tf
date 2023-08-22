@@ -1,14 +1,14 @@
 variable "rgname" {
-    type        = string
-    description = "resource group name"
+  type        = string
+  description = "resource group name"
 }
 
 variable "location" {
-    type    = string
-    default = "westeurope"
+  type    = string
+  default = "westeurope"
 }
 
 variable "service_principal_name" {
-    type = string
+  type = string
 }
 
